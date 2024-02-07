@@ -1,10 +1,13 @@
-version: "3.8"
+version: "3.8" # Specifies the version of the Compose file format
 services:
   quiz-app:
-    build:
-      context: ./starter-code/quiz-app
+    build: # Instructions to build the Docker image
+      context: ./starter-code/quiz-app # Specifies the build context directory
     ports:
-      - "5173:5173"
+      - "5173:5173" # Maps port 5173 inside the container to port 5173 on the host
+    volumes:
+      - ./starter-code/quiz-app:/app:delegated # Mounts the project directory inside the container for live reload
+      - /app/node_modules # Anonymous volume for node_modules to prevent overwriting by the mount
     environment:
-      - NODE_ENV=development
-    command: npm run dev
+      - NODE_ENV=development # Sets the NODE_ENV environment variable
+    command: npm run dev # Overrides the default command to start the Vite development server
